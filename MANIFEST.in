@@ -1,0 +1,6 @@
+recursive-include passerelle_imio_aes_health/static *.css *.png
+recursive-include passerelle_imio_aes_health/templates *.html *.txt
+recursive-include passerelle_imio_aes_health/locale *.po *.mo
+include MANIFEST.in
+include VERSION
+include README
