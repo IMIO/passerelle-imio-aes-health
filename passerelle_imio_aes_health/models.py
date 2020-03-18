@@ -140,12 +140,11 @@ class IImioAesHealth(BaseResource):
             }
         },
     )
-    def get_child_health_sheet(self, request):
-        # child = {"id": request.GET["child_id"]}
+    def get_child_health_sheet(self, request, child_id):
         if request.body:
             child = json.loads(request.body)
-        if not child.has_key["child_id"]:
-            return False
+        else:
+            child = dict([(x, request.GET[x]) for x in request.GET.keys()])
         health_sheet = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -155,6 +154,7 @@ class IImioAesHealth(BaseResource):
             [child],
         )
         return {"data": health_sheet}
+
 
     @endpoint(
         serializer_type="json-api",
