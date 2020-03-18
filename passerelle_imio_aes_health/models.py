@@ -146,9 +146,7 @@ class IImioAesHealth(BaseResource):
             child = json.loads(request.body)
         if not child.has_key["child_id"]:
             return False
-
-ll
-health_sheet = self.get_aes_server().execute_kw(
+        health_sheet = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
             self.password,
