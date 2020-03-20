@@ -83,6 +83,8 @@ class IImioAesHealth(BaseResource):
     category = _("Business Process Connectors")
     api_description = "Ce connecteur propose les méthodes d'échanges avec le produit IA-AES. (partie fiche santé)"
 
+    healthsheet = None
+
     class Meta:
         verbose_name = _("i-ImioAesHealth")
 
@@ -134,18 +136,20 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="Récupération de la fiche santé d'un enfant",
         parameters={
-            "child_id": {
+            "id": {
                 "description": "Identifiant d'un enfant",
-                "example_value": "786",
+                "example_value": "22",
             }
         },
     )
-    def get_child_health_sheet(self, request, child_id):
+    def get_child_health_sheet(self, request, id):
         if request.body:
             child = json.loads(request.body)
         else:
             child = dict([(x, request.GET[x]) for x in request.GET.keys()])
-        health_sheet = self.get_aes_server().execute_kw(
+        child["id"] = child["child_id"]
+        del child["child_id"]
+        healthsheet = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
             self.password,
@@ -153,20 +157,56 @@ class IImioAesHealth(BaseResource):
             "get_child_health_sheet",
             [child],
         )
-        return {"data": health_sheet}
-
+        self.healthsheet = healthsheet
+        return {"data": healthsheet}
 
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
-        description="Récupérer les enfants pour le parent connecté",
+        description="Recupere un attribut de la fiche sante",
         parameters={
-            "email": {
-                "description": "Adresse e-mail d'un parent AES/TS",
-                "example_value": "demotsaes@imio.be",
+            "id": {
+                "description": "Identifiant d'un enfant",
+                "example_value": "22",
+            },
+            "attribute": {
+                "description": "Un attribut de la fiche sante",
+                "example_value": "blood_type",
             }
         },
     )
+    def get_health_attribute(self, request, id, attribute):
+        if self.healthsheet is None:
+            self.healthsheet = self.get_child_health_sheet(request, id)
+        return self.healthsheet.get("data").get(attribute)
+
+    @endpoint(
+        serializer_type="json-api",
+        perm="can_access",
+        description="Recupere le blood type",
+        parameters={
+            "id": {
+                "description": "Identifiant d'un enfant",
+                "example_value": "22",
+            }
+        },
+    )
+    def get_blood_type(self, request, id):
+        if self.healthsheet is None:
+            self.healthsheet = self.get_child_health_sheet(request, id)
+        return self.healthsheet.get("data").get("blood_type")
+
+
+
+
+
+
+
+
+
+
+
+
     def get_children(self, request):
         # parent = {"email": request.GET["email"]}
         if request.body:
