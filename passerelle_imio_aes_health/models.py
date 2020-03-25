@@ -196,6 +196,87 @@ class IImioAesHealth(BaseResource):
             self.healthsheet = self.get_child_health_sheet(request, id)
         return self.healthsheet.get("data").get("blood_type")
 
+    @endpoint(
+        serializer_type="json-api",
+        perm="can_access",
+        description="get allergies",
+        parameters={
+            "datas": {
+                "description": "useless",
+                "example_value": "allergie",
+            },
+        },
+    )
+    def get_allergies(self, request, datas):
+        allergies = self.get_aes_server().execute_kw(
+            self.database_name,
+            self.get_aes_user_id(),
+            self.password,
+            "aes_api.aes_api",
+            "get_allergies",
+            [datas],
+        )
+        return allergies
+
+    @endpoint(
+        serializer_type="json-api",
+        perm="can_access",
+        description="envoyer les donnees dans aes",
+        methods=["post",],
+        parameters={
+            "healthsheet": {
+                "description": "send data to AES",
+                "example_value": {'form_var_blood_type': 'O-'},
+            },
+        },
+    )
+    def post_child_health_sheet(self, request, healthsheet):
+        return healthsheet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
