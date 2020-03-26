@@ -221,6 +221,28 @@ class IImioAesHealth(BaseResource):
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
+        description="get disease",
+        parameters={
+            "data": {
+                "description":"get disease",
+                "example_value":"disease",
+            },
+        },
+    )
+    def get_disease(self, request, data):
+        diseases = self.get_aes_server().execute_kw(
+            self.database_name,
+            self.get_aes_user_id(),
+            self.password,
+            "aes_api.aes_api",
+            "get_diseases",
+            [data]
+        )
+        return diseases
+    
+    @endpoint(
+        serializer_type="json-api",
+        perm="can_access",
         description="envoyer les donnees dans aes",
         methods=["post", ],
         parameters={
