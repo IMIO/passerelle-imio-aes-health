@@ -201,20 +201,20 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="get allergies",
         parameters={
-            "datas": {
+            "data": {
                 "description": "useless",
                 "example_value": "allergie",
             },
         },
     )
-    def get_allergies(self, request, datas):
+    def get_allergies(self, request, data):
         allergies = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
             self.password,
             "aes_api.aes_api",
             "get_allergies",
-            [datas],
+            [data],
         )
         return allergies
 
@@ -222,7 +222,7 @@ class IImioAesHealth(BaseResource):
         serializer_type="json-api",
         perm="can_access",
         description="envoyer les donnees dans aes",
-        methods=["post",],
+        methods=["post", ],
         parameters={
             "healthsheet": {
                 "description": "send data to AES",
