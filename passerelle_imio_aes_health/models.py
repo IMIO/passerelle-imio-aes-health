@@ -265,6 +265,28 @@ class IImioAesHealth(BaseResource):
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
+        description="Get doctors from AES",
+        parameters={
+            "data": {
+                "description":"get doctors",
+                "example_value":"doctors",
+            },
+        },
+    )
+    def get_doctors(self, request, data):
+        doctors = self.get_aes_server().execute_kw(
+            self.database_name,
+            self.get_aes_user_id(),
+            self.password,
+            "aes_api.aes_api",
+            "get_doctors",
+            [data]
+        )
+        return doctors
+
+    @endpoint(
+        serializer_type="json-api",
+        perm="can_access",
         description="envoyer les donnees dans aes",
         methods=["post", ],
         parameters={
@@ -277,3 +299,23 @@ class IImioAesHealth(BaseResource):
     def post_child_health_sheet(self, request, healthsheet):
         return healthsheet
 
+    @endpoint(
+        serializer_type="json-api",
+        perm="can_access",
+        methods=["post",],
+        description="envoyer les donnees dans aes",
+    )
+    def post_child_health_sheet(self, request):
+        try:
+            fields = json.loads(request.body).get("fields")
+        except ValueError as e:
+            raise ValueError(e.message)
+        is_update = self.get_aes_server().execute_kw(
+            self.database_name,
+            self.get_aes_user_id(),
+            self.password,
+            "aes_api.aes_api",
+            "post_child_health_sheet",
+            [fields],
+        )
+        return is_update
