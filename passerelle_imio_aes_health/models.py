@@ -200,43 +200,31 @@ class IImioAesHealth(BaseResource):
         serializer_type="json-api",
         perm="can_access",
         description="get allergies",
-        parameters={
-            "data": {
-                "description": "useless",
-                "example_value": "allergie",
-            },
-        },
     )
-    def get_allergies(self, request, data):
+    def get_allergies(self, request):
         allergies = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
             self.password,
             "aes_api.aes_api",
             "get_allergies",
-            [data],
+            [],
         )
         return allergies
 
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
-        description="get disease",
-        parameters={
-            "data": {
-                "description":"get disease",
-                "example_value":"disease",
-            },
-        },
+        description="Get all diseases from AES",
     )
-    def get_disease(self, request, data):
+    def get_disease(self, request):
         diseases = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
             self.password,
             "aes_api.aes_api",
             "get_diseases",
-            [data]
+            []
         )
         return diseases
 
@@ -244,21 +232,15 @@ class IImioAesHealth(BaseResource):
         serializer_type="json-api",
         perm="can_access",
         description="Get natation levels from AES",
-        parameters={
-            "data": {
-                "description":"get swim level",
-                "example_value":"swimlevel",
-            },
-        },
     )
-    def get_swim_levels(self, request, data):
+    def get_swim_levels(self, request):
         swim_level = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
             self.password,
             "aes_api.aes_api",
             "get_swim_levels",
-            [data]
+            []
         )
         return swim_level
 
@@ -266,23 +248,33 @@ class IImioAesHealth(BaseResource):
         serializer_type="json-api",
         perm="can_access",
         description="Get doctors from AES",
-        parameters={
-            "data": {
-                "description":"get doctors",
-                "example_value":"doctors",
-            },
-        },
     )
-    def get_doctors(self, request, data):
+    def get_doctors(self, request,):
         doctors = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
             self.password,
             "aes_api.aes_api",
             "get_doctors",
-            [data]
+            []
         )
         return doctors
+
+    @endpoint(
+        serializer_type="json-api",
+        perm="can_access",
+        description="Get handicap levels from AES",
+    )
+    def get_handicap_levels(self, request):
+        handicap_levels = self.get_aes_server().execute_kw(
+            self.database_name,
+            self.get_aes_user_id(),
+            self.password,
+            "aes_api.aes_api",
+            "get_level_handicap",
+            []
+        )
+        return handicap_levels
 
     @endpoint(
         serializer_type="json-api",
