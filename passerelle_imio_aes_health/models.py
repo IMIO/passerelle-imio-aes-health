@@ -279,6 +279,25 @@ class IImioAesHealth(BaseResource):
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
+        description="Get country from AES",
+    )
+    def get_countries(self, request):
+        countries = self.get_aes_server().execute_kw(
+            self.database_name,
+            self.get_aes_user_id(),
+            self.password,
+            'res.country',
+            'search_read',
+            [],
+            {'fields': ['id','name'], 'context':{'lang':'fr_BE'}}
+        )
+        for country in countries:
+            country['text'] = country.pop('name')
+        return {'data': countries}
+
+    @endpoint(
+        serializer_type="json-api",
+        perm="can_access",
         description="envoyer les donnees dans aes",
         methods=["post", ],
         parameters={
