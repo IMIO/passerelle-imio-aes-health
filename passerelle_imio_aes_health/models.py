@@ -136,13 +136,13 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="Récupération de la fiche santé d'un enfant",
         parameters={
-            "id": {
+            "child_id": {
                 "description": "Identifiant d'un enfant",
                 "example_value": "22",
             }
         },
     )
-    def get_child_health_sheet(self, request, id):
+    def get_child_health_sheet(self, request, child_id):
         if request.body:
             child = json.loads(request.body)
         else:
@@ -165,33 +165,29 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="Recupere un attribut de la fiche sante",
         parameters={
-            "id": {
+            "child_id": {
                 "description": "Identifiant d'un enfant",
                 "example_value": "22",
             },
-            "attribute": {
-                "description": "Un attribut de la fiche sante",
-                "example_value": "blood_type",
-            }
         },
     )
-    def get_health_attribute(self, request, id, attribute):
+    def get_health_attribute(self, request, child_id):
         if self.healthsheet is None:
-            self.healthsheet = self.get_child_health_sheet(request, id)
-        return self.healthsheet.get("data").get(attribute)
+            self.healthsheet = self.get_child_health_sheet(request, child_id)
+        return self.healthsheet.get("data")
 
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
         description="Recupere le blood type",
         parameters={
-            "id": {
+            "child_id": {
                 "description": "Identifiant d'un enfant",
                 "example_value": "22",
             }
         },
     )
-    def get_blood_type(self, request, id):
+    def get_blood_type(self, request, child_id):
         if self.healthsheet is None:
             self.healthsheet = self.get_child_health_sheet(request, id)
         return self.healthsheet.get("data").get("blood_type")
@@ -318,7 +314,7 @@ class IImioAesHealth(BaseResource):
     )
     def post_child_health_sheet(self, request):
         try:
-            fields = json.loads(request.body).get("fields")
+            fields = json.loads(request.body)
         except ValueError as e:
             raise ValueError(e.message)
         is_update = self.get_aes_server().execute_kw(
