@@ -29,14 +29,20 @@
 # https://doc-publik.entrouvert.com/tech/connecteurs/developpement-d-un-connecteur/#Journalisation
 
 # import ast
-import httplib
+try:
+    import http.client
+except ImportError:
+    import httplib
 import json
 import logging
 import requests
 import urllib
-import xmlrpclib
-
-from xmlrpclib import ServerProxy
+try:
+    import xmlrpc.client
+    from xmlrpc.client import ServerProxy
+except ImportError:
+    import xmlrpclib
+    from xmlrpclib import ServerProxy
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from passerelle import settings
