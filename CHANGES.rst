@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.1.1a
+------------------
+
+- Adapt Jenkinsfile to install package python3/dist-package instead of python2
+
 0.0.3a
 ------------------
 - change required package to python3-passerelle instead of passerelle
