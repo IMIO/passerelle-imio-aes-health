@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.1b
+------------------
+
+- Added some fixes for python3
+  [boulch]
+
 0.1.1a
 ------------------
 

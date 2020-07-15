@@ -16,7 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Decorateurs des endpoints:
-# serializer_type='json-api' : Permet de serializer la reponse directement dans un data + format automatique pour un raise exception.
+# serializer_type='json-api' : Permet de serializer la reponse directement
+# dans un data + format automatique pour un raise exception.
 
 # Doc Entr'ouvert : authentificaiton pour utiliser les apis.
 # https://doc-publik.entrouvert.com/tech/wcs/api-webservices/authentification/
@@ -35,18 +36,11 @@ except ImportError:
     import httplib
 import json
 import logging
-import requests
-import urllib
-try:
-    import xmlrpc.client
-    from xmlrpc.client import ServerProxy
-except ImportError:
-    import xmlrpclib
-    # noinspection PyCompatibility
-    from xmlrpclib import ServerProxy
+import xmlrpc.client
+
+from xmlrpc.client import ServerProxy
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from passerelle import settings
 from passerelle.base.models import BaseResource
 from passerelle.utils.api import endpoint
 
@@ -55,7 +49,7 @@ class FileNotFoundError(Exception):
     http_status = 404
 
 
-class ProxiedTransport(xmlrpclib.Transport):
+class ProxiedTransport(xmlrpc.client.Transport):
     def set_proxy(self, proxy):
         self.proxy = proxy
 
@@ -200,9 +194,7 @@ class IImioAesHealth(BaseResource):
         return self.healthsheet.get("data").get("blood_type")
 
     @endpoint(
-        serializer_type="json-api",
-        perm="can_access",
-        description="get allergies",
+        serializer_type="json-api", perm="can_access", description="get allergies",
     )
     def get_allergies(self, request):
         allergies = self.get_aes_server().execute_kw(
@@ -227,7 +219,7 @@ class IImioAesHealth(BaseResource):
             self.password,
             "aes_api.aes_api",
             "get_diseases",
-            []
+            [],
         )
         return diseases
 
@@ -243,7 +235,7 @@ class IImioAesHealth(BaseResource):
             self.password,
             "aes_api.aes_api",
             "get_swim_levels",
-            []
+            [],
         )
         return swim_level
 
@@ -252,14 +244,16 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="Get doctors from AES",
     )
-    def get_doctors(self, request,):
+    def get_doctors(
+        self, request,
+    ):
         doctors = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
             self.password,
             "aes_api.aes_api",
             "get_doctors",
-            []
+            [],
         )
         return doctors
 
@@ -275,7 +269,7 @@ class IImioAesHealth(BaseResource):
             self.password,
             "aes_api.aes_api",
             "get_level_handicap",
-            []
+            [],
         )
         return handicap_levels
 
@@ -289,14 +283,14 @@ class IImioAesHealth(BaseResource):
             self.database_name,
             self.get_aes_user_id(),
             self.password,
-            'res.country',
-            'search_read',
+            "res.country",
+            "search_read",
             [],
-            {'fields': ['id','name'], 'context':{'lang':'fr_BE'}}
+            {"fields": ["id", "name"], "context": {"lang": "fr_BE"}},
         )
         for country in countries:
-            country['text'] = country.pop('name')
-        return {'data': countries}
+            country["text"] = country.pop("name")
+        return {"data": countries}
 
     @endpoint(
         serializer_type="json-api",
@@ -306,7 +300,7 @@ class IImioAesHealth(BaseResource):
         parameters={
             "healthsheet": {
                 "description": "send data to AES",
-                "example_value": {'form_var_blood_type': 'O-'},
+                "example_value": {"form_var_blood_type": "O-"},
             },
         },
     )
@@ -316,7 +310,7 @@ class IImioAesHealth(BaseResource):
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
-        methods=["post",],
+        methods=["post", ],
         description="envoyer les donnees dans aes",
     )
     def post_child_health_sheet(self, request):
