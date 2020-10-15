@@ -34,7 +34,6 @@ try:
     import http.client
 except ImportError:
     import httplib
-import json
 import logging
 import xmlrpc.client
 
@@ -42,6 +41,7 @@ from xmlrpc.client import ServerProxy
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from passerelle.base.models import BaseResource
+from passerelle.compat import json_loads
 from passerelle.utils.api import endpoint
 
 
@@ -145,7 +145,7 @@ class IImioAesHealth(BaseResource):
     )
     def get_child_health_sheet(self, request, child_id):
         if request.body:
-            child = json.loads(request.body)
+            child = json_loads(request.body)
         else:
             child = dict([(x, request.GET[x]) for x in request.GET.keys()])
         child["id"] = child["child_id"]
@@ -315,7 +315,7 @@ class IImioAesHealth(BaseResource):
     )
     def post_child_health_sheet(self, request):
         try:
-            fields = json.loads(request.body)
+            fields = json_loads(request.body)
         except ValueError as e:
             raise ValueError(e.message)
         is_update = self.get_aes_server().execute_kw(
