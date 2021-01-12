@@ -121,7 +121,8 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="Tester la connexion avec AES",
     )
-    def tst_connexion(self, request):
+    def test_connexion(self, request):
+        """Display hello world if the connection with AES had been established"""
         test = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -144,6 +145,13 @@ class IImioAesHealth(BaseResource):
         },
     )
     def get_child_health_sheet(self, request, child_id):
+        """Return the health sheet's data of the child given
+
+        :param request:
+        :param child_id: int
+            The child's identifier from AES
+        :return:
+        """
         if request.body:
             child = json_loads(request.body)
         else:
@@ -197,6 +205,11 @@ class IImioAesHealth(BaseResource):
         serializer_type="json-api", perm="can_access", description="get allergies",
     )
     def get_allergies(self, request):
+        """Get allergies from AES
+
+        :param request:
+        :return:
+        """
         allergies = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -213,6 +226,11 @@ class IImioAesHealth(BaseResource):
         description="Get all diseases from AES",
     )
     def get_disease(self, request):
+        """ Get diseases from AES
+
+        :param request:
+        :return:
+        """
         diseases = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -229,6 +247,13 @@ class IImioAesHealth(BaseResource):
         description="Get natation levels from AES",
     )
     def get_swim_levels(self, request):
+        """Get swimming levels from AES
+
+        Swimming levels assess the child's ability to swim
+
+        :param request:
+        :return:
+        """
         swim_level = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -244,9 +269,12 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="Get doctors from AES",
     )
-    def get_doctors(
-        self, request,
-    ):
+    def get_doctors(self, request):
+        """Get doctors from AES
+
+        :param request:
+        :return:
+        """
         doctors = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -263,6 +291,11 @@ class IImioAesHealth(BaseResource):
         description="Get handicap levels from AES",
     )
     def get_handicap_levels(self, request):
+        """Get handicap from AES
+
+        :param request:
+        :return:
+        """
         handicap_levels = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -279,6 +312,11 @@ class IImioAesHealth(BaseResource):
         description="Get country from AES",
     )
     def get_countries(self, request):
+        """Get Countries from AES
+
+        :param request:
+        :return:
+        """
         countries = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -292,20 +330,45 @@ class IImioAesHealth(BaseResource):
             country["text"] = country.pop("name")
         return {"data": countries}
 
+
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
-        description="envoyer les donnees dans aes",
-        methods=["post", ],
-        parameters={
-            "healthsheet": {
-                "description": "send data to AES",
-                "example_value": {"form_var_blood_type": "O-"},
-            },
-        },
+        description="Propose la liste des options disponibles pour la fiche santé"
     )
-    def post_child_health_sheet(self, request, healthsheet):
-        return healthsheet
+    def get_healthsheet_options(self, request):
+        """Display a datasource with all options of health sheet form
+
+        :param request:
+        :return:
+        """
+        healthsheet_options = [
+            {'id': 'blood_type', 'text': 'Quel est le groupe sanguin de l\'enfant ?'},
+            {'id': 'tetanos', 'text': 'L\'enfant a-t-il été vacciné contre le tétanos ?'},
+            {'id': 'intervention', 'text': 'L\'enfant a-t-il subit une intervention récemment ?'},
+            {'id': 'swim', 'text': 'L\'enfant sait-il nager ?'},
+            {'id': 'handicap', 'text': 'L\'enfant souffre-t-il d\'un handicap ?'},
+            {'id': 'activity_no_available', 'text': 'Activités non praticables'},
+            {'id': 'regime', 'text': 'L\'enfant suit-il un régime spécifique ?'},
+            {'id': 'arnica', 'text': 'Autorisez-vous les accompagnants à utiliser de l\'arnica ?'},
+            {'id': 'allergies', 'text': 'L\'enfant a-t-il des allergies ?'},
+            {'id': 'new_allergies', 'text': 'Permettre aux parents d\'ajouter d\'autres allergies ?'},
+            {'id': 'diseases', 'text': 'L\'enfant a-t-il des maladies ?'},
+            {'id': 'new_diseases', 'text': 'Permettre aux parents d\'ajouter d\'autres maladies ?'},
+            {'id': 'medication', 'text': 'L\'enfant doit-il prendre des médicaments ?'},
+            {'id': 'medical_data','text': 'Y a-t-il des données médicales spécifiques importantes à connaître pour le '
+                                          'bon déroulement des activités (épilepsie,problème cardiaque, asthme, '
+                                          '...) ?',
+             'disabled': True},
+            {'id': 'other_contact_address', 'text': 'Demander l\'adresse des autres contacts'},
+            {'id': 'photo', 'text': 'L\'enfant peut-il être pris en photo durant les stages ou les plaines ?'},
+            {'id': 'photo_general',
+             'text': 'L\'enfant peut-il être pris en photo lors des garderies, ateliers, spectacles, ou autre ?'},
+            {'id': 'facebook',
+             'text': 'Les photos de l\'enfant peuvent-elles être publiées sur les réseaux sociaux (site de l\'école, '
+                     'Facebook) ?'}, ]
+        return {"data": healthsheet_options}
+
 
     @endpoint(
         serializer_type="json-api",
@@ -314,6 +377,11 @@ class IImioAesHealth(BaseResource):
         description="envoyer les donnees dans aes",
     )
     def post_child_health_sheet(self, request):
+        """Post health sheet to AES to register it
+
+        :param request:
+        :return:
+        """
         try:
             fields = json_loads(request.body)
         except ValueError as e:

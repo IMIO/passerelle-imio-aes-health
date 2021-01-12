@@ -6,6 +6,10 @@ Changelog
 
 - init buster branch that will become master later and adapt Jenkinsfile for Nexus (Debian Buster packages)
   [dmuyshond]
+- rename tst_connection as test_connection
+- [MPP-37] add docstrings
+- [MPPMSGA-168] add method to get healthsheet's options
+  [nhi]
 
 0.1.1b
 ------------------
