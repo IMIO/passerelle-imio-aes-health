@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.1d
+------------------
+
+- merge master and buster
+  [nhi]
+
 0.1.1c
 ------------------
 
