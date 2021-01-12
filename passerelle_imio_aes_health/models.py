@@ -121,7 +121,7 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="Tester la connexion avec AES",
     )
-    def tst_connexion(self, request):
+    def test_connexion(self, request):
         test = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -292,20 +292,40 @@ class IImioAesHealth(BaseResource):
             country["text"] = country.pop("name")
         return {"data": countries}
 
+
     @endpoint(
         serializer_type="json-api",
         perm="can_access",
-        description="envoyer les donnees dans aes",
-        methods=["post", ],
-        parameters={
-            "healthsheet": {
-                "description": "send data to AES",
-                "example_value": {"form_var_blood_type": "O-"},
-            },
-        },
+        description="Propose la liste des options disponibles pour la fiche santé"
     )
-    def post_child_health_sheet(self, request, healthsheet):
-        return healthsheet
+    def get_healthsheet_options(self, request):
+        healthsheet_options = [
+            {'id': 'blood_type', 'text': 'Quel est le groupe sanguin de l\'enfant ?'},
+            {'id': 'tetanos', 'text': 'L\'enfant a-t-il été vacciné contre le tétanos ?'},
+            {'id': 'intervention', 'text': 'L\'enfant a-t-il subit une intervention récemment ?'},
+            {'id': 'swim', 'text': 'L\'enfant sait-il nager ?'},
+            {'id': 'handicap', 'text': 'L\'enfant souffre-t-il d\'un handicap ?'},
+            {'id': 'activity_no_available', 'text': 'Activités non praticables'},
+            {'id': 'regime', 'text': 'L\'enfant suit-il un régime spécifique ?'},
+            {'id': 'arnica', 'text': 'Autorisez-vous les accompagnants à utiliser de l\'arnica ?'},
+            {'id': 'allergies', 'text': 'L\'enfant a-t-il des allergies ?'},
+            {'id': 'new_allergies', 'text': 'Permettre aux parents d\'ajouter d\'autres allergies ?'},
+            {'id': 'diseases', 'text': 'L\'enfant a-t-il des maladies ?'},
+            {'id': 'new_diseases', 'text': 'Permettre aux parents d\'ajouter d\'autres maladies ?'},
+            {'id': 'medication', 'text': 'L\'enfant doit-il prendre des médicaments ?'},
+            {'id': 'medical_data','text': 'Y a-t-il des données médicales spécifiques importantes à connaître pour le '
+                                          'bon déroulement des activités (épilepsie,problème cardiaque, asthme, '
+                                          '...) ?',
+             'disabled': True},
+            {'id': 'other_contact_address', 'text': 'Demander l\'adresse des autres contacts'},
+            {'id': 'photo', 'text': 'L\'enfant peut-il être pris en photo durant les stages ou les plaines ?'},
+            {'id': 'photo_general',
+             'text': 'L\'enfant peut-il être pris en photo lors des garderies, ateliers, spectacles, ou autre ?'},
+            {'id': 'facebook',
+             'text': 'Les photos de l\'enfant peuvent-elles être publiées sur les réseaux sociaux (site de l\'école, '
+                     'Facebook) ?'}, ]
+        return {"data": healthsheet_options}
+
 
     @endpoint(
         serializer_type="json-api",
