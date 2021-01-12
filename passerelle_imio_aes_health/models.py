@@ -122,6 +122,7 @@ class IImioAesHealth(BaseResource):
         description="Tester la connexion avec AES",
     )
     def test_connexion(self, request):
+        """Display hello world if the connection with AES had been established"""
         test = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -144,6 +145,13 @@ class IImioAesHealth(BaseResource):
         },
     )
     def get_child_health_sheet(self, request, child_id):
+        """Return the health sheet's data of the child given
+
+        :param request:
+        :param child_id: int
+            The child's identifier from AES
+        :return:
+        """
         if request.body:
             child = json_loads(request.body)
         else:
@@ -197,6 +205,11 @@ class IImioAesHealth(BaseResource):
         serializer_type="json-api", perm="can_access", description="get allergies",
     )
     def get_allergies(self, request):
+        """Get allergies from AES
+
+        :param request:
+        :return:
+        """
         allergies = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -213,6 +226,11 @@ class IImioAesHealth(BaseResource):
         description="Get all diseases from AES",
     )
     def get_disease(self, request):
+        """ Get diseases from AES
+
+        :param request:
+        :return:
+        """
         diseases = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -229,6 +247,13 @@ class IImioAesHealth(BaseResource):
         description="Get natation levels from AES",
     )
     def get_swim_levels(self, request):
+        """Get swimming levels from AES
+
+        Swimming levels assess the child's ability to swim
+
+        :param request:
+        :return:
+        """
         swim_level = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -244,9 +269,12 @@ class IImioAesHealth(BaseResource):
         perm="can_access",
         description="Get doctors from AES",
     )
-    def get_doctors(
-        self, request,
-    ):
+    def get_doctors(self, request):
+        """Get doctors from AES
+
+        :param request:
+        :return:
+        """
         doctors = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -263,6 +291,11 @@ class IImioAesHealth(BaseResource):
         description="Get handicap levels from AES",
     )
     def get_handicap_levels(self, request):
+        """Get handicap from AES
+
+        :param request:
+        :return:
+        """
         handicap_levels = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -279,6 +312,11 @@ class IImioAesHealth(BaseResource):
         description="Get country from AES",
     )
     def get_countries(self, request):
+        """Get Countries from AES
+
+        :param request:
+        :return:
+        """
         countries = self.get_aes_server().execute_kw(
             self.database_name,
             self.get_aes_user_id(),
@@ -299,6 +337,11 @@ class IImioAesHealth(BaseResource):
         description="Propose la liste des options disponibles pour la fiche santé"
     )
     def get_healthsheet_options(self, request):
+        """Display a datasource with all options of health sheet form
+
+        :param request:
+        :return:
+        """
         healthsheet_options = [
             {'id': 'blood_type', 'text': 'Quel est le groupe sanguin de l\'enfant ?'},
             {'id': 'tetanos', 'text': 'L\'enfant a-t-il été vacciné contre le tétanos ?'},
@@ -334,6 +377,11 @@ class IImioAesHealth(BaseResource):
         description="envoyer les donnees dans aes",
     )
     def post_child_health_sheet(self, request):
+        """Post health sheet to AES to register it
+
+        :param request:
+        :return:
+        """
         try:
             fields = json_loads(request.body)
         except ValueError as e:
