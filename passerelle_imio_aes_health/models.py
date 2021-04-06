@@ -158,16 +158,20 @@ class IImioAesHealth(BaseResource):
             child = dict([(x, request.GET[x]) for x in request.GET.keys()])
         child["id"] = child["child_id"]
         del child["child_id"]
-        healthsheet = self.get_aes_server().execute_kw(
-            self.database_name,
-            self.get_aes_user_id(),
-            self.password,
-            "aes_api.aes_api",
-            "get_child_health_sheet",
-            [child],
-        )
-        self.healthsheet = healthsheet
+        if child.get("id") != 'None':
+            healthsheet = self.get_aes_server().execute_kw(
+                self.database_name,
+                self.get_aes_user_id(),
+                self.password,
+                "aes_api.aes_api",
+                "get_child_health_sheet",
+                [child],
+            )
+            self.healthsheet = healthsheet
+        else:
+            healthsheet = "no id given"
         return {"data": healthsheet}
+
 
     @endpoint(
         serializer_type="json-api",

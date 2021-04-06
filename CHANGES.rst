@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.1e
+------------------
+
+- do not request healthsheet from AES if no child id given
+  [nhi]
+
 0.1.1d
 ------------------
 
