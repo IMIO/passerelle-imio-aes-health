@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.1f
+------------------
+
+- use commune's site instead of school's one
+- use python 3.7.3 only
+  [nhi]
+
 0.1.1e
 ------------------
 
