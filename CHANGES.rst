@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.1k
+------------------
+
+- declare only python3 as programming language
+- re set django only as required
+  [nhi]
+
 0.1.1j
 ------------------
 
