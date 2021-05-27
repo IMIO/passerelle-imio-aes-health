@@ -1,16 +1,24 @@
 Changelog
 =========
 
+0.1.1i
+------------------
+
+- remove python 3.7.3 as required
+- set django version between 1.11 and 2.2 as required
+- fix typo in changelog
+  [nhi]
+
 0.1.1h
 ------------------
 
-- set python 3.7.3 as requiered
+- set python 3.7.3 as required
   [nhi]
 
 0.1.1g
 ------------------
 
-- set django 2.2 as requiered
+- set django 2.2 as required
   [nhi]
 
 0.1.1f

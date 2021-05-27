@@ -93,8 +93,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.7.3',
     ],
-    install_requires=['django>=2.2'],
-    python_requieres=">=3.7.3",
+    install_requires=['django >= 1.11, <2.3',],
     zip_safe=False,
     cmdclass={
         'build': build,
