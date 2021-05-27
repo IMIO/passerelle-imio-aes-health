@@ -369,7 +369,7 @@ class IImioAesHealth(BaseResource):
             {'id': 'photo_general',
              'text': 'L\'enfant peut-il être pris en photo lors des garderies, ateliers, spectacles, ou autre ?'},
             {'id': 'facebook',
-             'text': 'Les photos de l\'enfant peuvent-elles être publiées sur les réseaux sociaux (site de l\'école, '
+             'text': 'Les photos de l\'enfant peuvent-elles être publiées sur les réseaux sociaux (site de la commune, '
                      'Facebook) ?'}, ]
         return {"data": healthsheet_options}
 
