@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.1l
+------------------
+
+- set depends to python3-django
+  [nhi]
+
 0.1.1k
 ------------------
 
