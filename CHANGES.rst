@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.1j
+------------------
+
+- set python3-django as required
+  [nhi]
+
 0.1.1i
 ------------------
 
