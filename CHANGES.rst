@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.1n
+------------------
+
+- fix Jenkinsfile's fpm command
+  [nhi]
+
 0.1.1m
 ------------------
 
