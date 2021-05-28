@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.1m
+------------------
+
+- adapt Jenkinsfile's fpm command because it add python- to dependencies
+  [nhi]
+
 0.1.1l
 ------------------
 
