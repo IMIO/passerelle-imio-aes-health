@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.2
+------------------
+
+- update versionning scheme to remove letters
+  [nhi]
+
 0.1.1n
 ------------------
 
