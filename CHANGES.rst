@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.3
+------------------
+
+- replace python3-django from dependencies by django
+  [nhi]
+
+
 0.1.2
 ------------------
 
