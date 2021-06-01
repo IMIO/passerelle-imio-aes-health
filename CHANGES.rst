@@ -1,12 +1,17 @@
 Changelog
 =========
 
+0.1.4
+------------------
+
+- remove django 2.3 as max dependency
+  [nhi]
+
 0.1.3
 ------------------
 
 - replace python3-django from dependencies by django
   [nhi]
-
 
 0.1.2
 ------------------
