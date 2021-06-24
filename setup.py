@@ -90,9 +90,9 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.7.3',
+        'Programming Language :: Python :: 3',
     ],
-    install_requires=['django >= 2.2',],
+    install_requires=['django >=1.11, <2.3',],
     zip_safe=False,
     cmdclass={
         'build': build,
