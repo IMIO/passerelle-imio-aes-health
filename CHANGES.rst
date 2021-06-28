@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.8
+------------------
+
+- set django requirement version from 1.11 to 2.3q
+- set epoch=1
+  [nhi]
+
 0.1.7
 ------------------
 

@@ -92,7 +92,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
     ],
-    install_requires=['django >=1.11.0, <2.3.30',],
+    install_requires=['django >=1.11, <2.3',],
     zip_safe=False,
     cmdclass={
         'build': build,
