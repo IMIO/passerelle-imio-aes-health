@@ -1,13 +1,20 @@
 Changelog
 =========
 
+0.1.10
+------------------
+
+- set django requirement version from 1.11 to 2.3
+- set dependencies to false in fpm command
+  [nhi]
+
 0.1.9
 ------------------
 
 - set django requirement version from 1:1.11 to 2:2.3
   [nhi]
 
-.1.8
+0.1.8
 ------------------
 
 - set django requirement version from 1.11 to 2.3
