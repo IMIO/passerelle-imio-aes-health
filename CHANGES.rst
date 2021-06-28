@@ -1,10 +1,16 @@
 Changelog
 =========
 
+0.1.7
+------------------
+
+- set django requirement version from 1.11.0 to 2.3.30
+  [nhi]
+
 0.1.6
 ------------------
 
-- set django requirement version at .11.11 to 1.2.3
+- set django requirement version at 1.1.11 to 1.2.3
   [nhi]
 
 0.1.5
