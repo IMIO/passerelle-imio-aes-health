@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.1.13
+------------------
+- split fpm on multiple lines
+  [nhi]
+
 0.1.12
 ------------------
 - fix quotes
