@@ -60,7 +60,9 @@ pipeline {
         always {
             sh "rm -f passerelle-imio-aes-health_*.deb"
         }
-
+        success {
+            cleanWs()
+        }
     }
 }
 

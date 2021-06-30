@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.1.14
+------------------
+- clean workspace on successful build
+  [nhi]
+
 0.1.13
 ------------------
 - split fpm on multiple lines
