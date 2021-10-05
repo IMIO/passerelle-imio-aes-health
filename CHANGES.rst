@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.1.15
+------------------
+- [TELE-1119] add -k to avoid SSL error following the Infra advice about that
+  [dmshd]
+
 0.1.14
 ------------------
 - clean workspace on successful build
