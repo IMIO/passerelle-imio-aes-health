@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.1.16
+------------------
+- [TELE-1125] use iateleservicesCreateDeb pipeline function [nhi]
+- [TELE-1144] set install path in jenkins params [nhi]
+- set author to iA.Teleservices team [nhi]
+
 0.1.15
 ------------------
 - [TELE-1119] add -k to avoid SSL error following the Infra advice about that

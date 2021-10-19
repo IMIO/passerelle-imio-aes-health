@@ -49,13 +49,13 @@ class install_lib(_install_lib):
         _install_lib.run(self)
 
 
-version = "0.1.15"
+version = "0.1.16"
 
 setup(
     name="passerelle-imio-aes-health",
     version=version,
-    author="Christophe Boulanger",
-    author_email="christophe.boulanger@imio.be",
+    author="iA.Teleservices",
+    author_email="support-ts@imio.be",
     packages=find_packages(),
     include_package_data=True,
     url="https://dev.entrouvert.org/projects/imio/",
