@@ -30,10 +30,12 @@
 # https://doc-publik.entrouvert.com/tech/connecteurs/developpement-d-un-connecteur/#Journalisation
 
 # import ast
+
 try:
     import http.client
 except ImportError:
     import httplib
+import json
 import logging
 import xmlrpc.client
 
@@ -41,7 +43,6 @@ from xmlrpc.client import ServerProxy
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from passerelle.base.models import BaseResource
-from passerelle.compat import json_loads
 from passerelle.utils.api import endpoint
 
 
@@ -153,7 +154,7 @@ class IImioAesHealth(BaseResource):
         :return:
         """
         if request.body:
-            child = json_loads(request.body)
+            child = json.loads(request.body)
         else:
             child = dict([(x, request.GET[x]) for x in request.GET.keys()])
         child["id"] = child["child_id"]
@@ -387,7 +388,7 @@ class IImioAesHealth(BaseResource):
         :return:
         """
         try:
-            fields = json_loads(request.body)
+            fields = json.loads(request.body)
         except ValueError as e:
             raise ValueError(e.message)
         is_update = self.get_aes_server().execute_kw(

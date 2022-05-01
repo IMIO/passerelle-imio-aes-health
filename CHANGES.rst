@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.17
+------------------
+- [TELE-1306] remove passerelle.compat [nhi]
+
 0.1.16
 ------------------
 - [TELE-1125] use iateleservicesCreateDeb pipeline function [nhi]
